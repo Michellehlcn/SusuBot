@@ -4,8 +4,15 @@
   "description": "Facebook Messenger Bot for online crochet shop",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node src/server.js"
   },
+  "keywords": [
+    "messenger",
+    "facebook",
+    "bot",
+    "chatbot"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Michellehlcn/SusuBot.git"

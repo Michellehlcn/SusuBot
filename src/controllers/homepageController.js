@@ -5,7 +5,7 @@ let getHomePage = (req, res) => {
 };
 require("dotenv").config();
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-let getWebHook = (res,req) => {
+let getWebHook = (req, res) => {
     let VERIFY_TOKEN = MY_VERIFY_TOKEN; 
      // Parse the query params
      let mode = req.query['hub.mode'];

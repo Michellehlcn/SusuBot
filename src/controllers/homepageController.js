@@ -1,10 +1,10 @@
-const { config } = require("dotenv");
 
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
 require("dotenv").config();
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+
 let getWebHook = (req, res) => {
     let VERIFY_TOKEN = MY_VERIFY_TOKEN; 
      // Parse the query params

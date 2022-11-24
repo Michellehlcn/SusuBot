@@ -1,4 +1,4 @@
-
+'use strict';
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
@@ -48,7 +48,7 @@ let postWebHook = (res,req) => {
     }    
 };
 
-module.exports = {
+exports.default = {
     getHomePage: getHomePage,
     getWebHook: getWebHook,
     postWebHook: postWebHook

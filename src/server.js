@@ -1,17 +1,17 @@
 'use strict';
-require("dotenv").config();
+import { config } from "dotenv";
 import express from "express";
-import viewEngine from "./config/viewEngine.js";
-import initWebRoute from "./routes/web.js";
+import * as viewEngine from "./config/viewEngine.js";
+import * as initWebRoute from "./routes/web.js";
 import bodyParser from "body-parser";
 
 let app = express();
 
 // config view engine
-viewEngine(app);
+viewEngine.configViewEngine(app);
 
 // init all web routes
-initWebRoute(app);
+initWebRoute.initWebRoutes(app);
 
 let port = process.env.PORT || 8080;
 

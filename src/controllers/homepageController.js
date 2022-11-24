@@ -2,7 +2,8 @@
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
-require("dotenv").config();
+// require("dotenv").config();
+import { config } from "dotenv";
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 let getWebHook = (req, res) => {
@@ -47,8 +48,8 @@ let postWebHook = (res,req) => {
         res.sendStatus(404);
     }    
 };
-module.exports= {
-    getHomePage: getHomePage,
-    getWebHook: getWebHook,
-    postWebHook: postWebHook
+export {
+    getHomePage,
+    getWebHook,
+    postWebHook
 };

@@ -47,8 +47,7 @@ let postWebHook = (res,req) => {
         res.sendStatus(404);
     }    
 };
-
-exports.default = {
+module.exports= {
     getHomePage: getHomePage,
     getWebHook: getWebHook,
     postWebHook: postWebHook

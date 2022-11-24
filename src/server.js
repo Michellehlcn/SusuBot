@@ -1,3 +1,4 @@
+'use strict';
 require("dotenv").config();
 import express from "express";
 import viewEngine from "./config/viewEngine.js";

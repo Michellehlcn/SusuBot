@@ -1,3 +1,4 @@
+'use strict';
 import express from "express";
 
 /*
@@ -10,5 +11,5 @@ let configViewEngine = (app) => {
     app.set("views", "./src/views");
 };
 
-module.exports = configViewEngine;
+exports.default = configViewEngine;
 

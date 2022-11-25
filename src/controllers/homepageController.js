@@ -31,23 +31,49 @@ let getWebHook = (req, res) => {
  };
 
 let postWebHook = (res,req) => {
-    let body = req.body;
-    console.log(`\u{1F7EA} Received webhook:`);
-    console.dir(body, {depth: null});
+     // Parse the request body from the POST
+  let body = req.body;
 
-    //Send a 200 OK response if this is a page webhook
+  // Check the webhook event is from a Page subscription
+  if (body.object === 'page') {
 
-    if (body.object === "page" ) {
-        //return a '200 OK' response to all requests
-        res.status(200).send("EVENT_RECEIVED");
+    // Iterate over each entry - there may be multiple if batched
+    body.entry.forEach(function(entry) {
 
-        // Determined which webhooks were triggered and get sender PSIDs and locale, message content
+      // Get the webhook event. entry.messaging is an array, but 
+      // will only ever contain one event, so we get index 0
+    let webhook_event = entry.messaging[0];
+    console.log(webhook_event);
 
-    } else {
-        // Return a '404 NOT FOUND' if event is not from a page subscription
-        res.sendStatus(404);
-    }    
+    // Get the sender PSID
+    let sender_psid = webhook_event.sender.id;
+    console.log('Sender PSID: ' + sender_psid);  
+    });
+
+    // Return a '200 OK' response to all events
+    res.status(200).send('EVENT_RECEIVED');
+
+  } else {
+    // Return a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
+  }
 };
+
+// Handles messages events
+let handleMessage =(sender_psid, received_message) =>{
+
+};
+
+// Handles messaging_postbacks events
+let handlePostback = (sender_psid, received_postback)=> {
+
+};
+
+// Sends response messages via the Send API
+let callSendAPI = (sender_psid, response) =>{
+  
+};
+
 export {
     getHomePage,
     getWebHook,

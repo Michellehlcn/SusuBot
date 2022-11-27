@@ -2,12 +2,15 @@
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
-// require("dotenv").config();
-import { config } from "dotenv";
+// FIX ES6
+import {} from "dotenv/config";
+
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 let getWebHook = (req, res) => {
+  console.log(req);
     let VERIFY_TOKEN = MY_VERIFY_TOKEN; 
+    console.log("My verify token " + VERIFY_TOKEN);
      // Parse the query params
      let mode = req.query['hub.mode'];
      let token = req.query['hub.verify_token'];
@@ -30,7 +33,8 @@ let getWebHook = (req, res) => {
      }
  };
 
-let postWebHook = (res,req) => {
+let postWebHook = (req, res) => {
+
      // Parse the request body from the POST
   let body = req.body;
 

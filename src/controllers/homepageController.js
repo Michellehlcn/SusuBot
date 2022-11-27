@@ -117,7 +117,7 @@ function callSendAPI (sender_psid, response) {
   });
 };
 // Handles messages events
-function handleMessage (sender_psid, received_message){
+function handleMessage (sender_psid, message){
   // handle message for react, like press like button
   // id like button
 

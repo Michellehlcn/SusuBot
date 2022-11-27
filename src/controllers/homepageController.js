@@ -2,7 +2,6 @@
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
-import { json } from "body-parser";
 // FIX ES6
 import {} from "dotenv/config";
 

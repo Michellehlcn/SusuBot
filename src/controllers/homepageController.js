@@ -4,6 +4,7 @@ let getHomePage = (req, res) => {
 };
 // FIX ES6
 import {} from "dotenv/config";
+import { request } from "express";
 
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -71,19 +72,28 @@ let postWebHook = (req, res) => {
     res.sendStatus(404);
   }
 };
-
-// Handles messages events
-let handleMessage =(sender_psid, received_message) =>{
-
-};
+function firstTrait(nlp, name) {
+  return nlp && nlp.entities & nlp.traits[name] && nlp.traits[name][0];
+}
 
 // Handles messaging_postbacks events
-let handlePostback = (sender_psid, received_postback)=> {
+function handlePostback (sender_psid, received_postback) {
+  let response;
 
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { "text": "Thanks!"}
+  } else if ( payload === 'no' ){
+    response = { "text": "Oops, try sending another image." }
+  }
+  callSendAPI(sender_psid, response);
 };
 
 // Sends response messages via the Send API
-let callSendAPI = (sender_psid, response) =>{
+function callSendAPI (sender_psid, response) {
   // Construct the message body
   let request_body = {
     "recipient": {
@@ -106,7 +116,91 @@ let callSendAPI = (sender_psid, response) =>{
     }
   });
 };
+// Handles messages events
+function handleMessage (sender_psid, received_message){
+  // handle message for react, like press like button
+  // id like button
 
+  if (message && message.attachments && message.attachments[0].payload ) {
+    callSendAPI(sender_psid, "Thank you for viewing the catalogs");
+    calSendAPIWithTemplate(sender_psid);
+    return;
+  }
+
+  let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye"];
+  let entityChosen = "";
+  entitiesArr.forEach( name => {
+    let entity = firstTrait(message.nlp, name);
+    if (entity && entity.confidence > 0.8) {
+      entityChosen = name;
+    }
+  });
+
+  if (entityChosen === "") {
+    //default
+    callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
+  } else {
+    if (entityChosen === "wit$greeting") {
+      // send greeting message
+      callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
+    }
+    if (entityChosen === "wit$thanks") {
+      // send thanks message
+      callSendAPI(sender_psid, "You're welcome");
+    }
+    if (entityChosen === "wit$bye") {
+      // send bye message
+      callSendAPI(sender_psid, 'bye-bye!');
+    }
+  }
+};
+
+let calSendAPIWithTemplate = (sender_psid) => {
+  // document fb message template
+  // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
+  // https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
+
+  let body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": "Crochet Dolls",
+              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
+              "subtitle": "Crochet Dolls subtitle",
+              "buttons": [
+                {
+                  "type": "web_url",
+                  "url": "https://susu-bot.herokuapp.com",
+                  "title": "Click"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  };
+
+  request({
+    "uri": "https://graph.facebook.com/v15.0/me/messages",
+    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN},
+    "method": "POST",
+    "json": body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent');
+    } else {
+      console.error("Unable to send message: "+ err);
+    }
+  });
+};
 export {
     getHomePage,
     getWebHook,

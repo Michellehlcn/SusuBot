@@ -4,7 +4,7 @@ let getHomePage = (req, res) => {
 };
 // FIX ES6
 import { } from "dotenv/config";
-import { request } from "express";
+import { request } from "request";
 
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 

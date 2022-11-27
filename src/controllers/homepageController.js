@@ -115,7 +115,7 @@ function callSendAPI(sender_psid, response) {
 };
 
 function firstTrait(nlp, name) {
-  return nlp && nlp.entities & nlp.traits[name] && nlp.traits[name][0];
+  return nlp && nlp.entities & nlp.entities[name] && nlp.entities[name][0];
 }
 
 // Handles messages events
@@ -133,7 +133,7 @@ function handleMessage(sender_psid, message) {
   let entityChosen = "";
   entitiesArr.forEach(name => {
     let entity = firstTrait(message.nlp, name);
-    if (entity && entity.confidence > 0.8) {
+    if (entity && message.nlp.entities[name].confidence > 0.8) {
       entityChosen = name;
     }
   });
@@ -142,7 +142,7 @@ function handleMessage(sender_psid, message) {
     //default
     callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
   } else {
-    if (entityChosen === "greeting") {
+    if (entityChosen === "greetings") {
       // send greeting message
       callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
     }

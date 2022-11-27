@@ -8,7 +8,7 @@ import {} from "dotenv/config";
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 let getWebHook = (req, res) => {
-  console.log(req);
+
     let VERIFY_TOKEN = MY_VERIFY_TOKEN; 
     console.log("My verify token " + VERIFY_TOKEN);
      // Parse the query params
@@ -37,7 +37,7 @@ let postWebHook = (req, res) => {
 
      // Parse the request body from the POST
   let body = req.body;
-
+  console,log(req.body);
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
 

@@ -2,6 +2,7 @@
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs")
 };
+import { json } from "body-parser";
 // FIX ES6
 import {} from "dotenv/config";
 
@@ -48,11 +49,20 @@ let postWebHook = (req, res) => {
       // will only ever contain one event, so we get index 0
     let webhook_event = entry.messaging[0];
     console.log(webhook_event);
+    console.log("[MESSAGING] "+JSON.stringify(entry.messaging));
 
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
     console.log('Sender PSID: ' + sender_psid);  
     });
+
+    // Check if the event is a message or postback and 
+    // pass the event to the appropriate handler function
+    if (webhook_event.message) {
+      handleMessage(sender_psid, webhook_event.message);
+    } else if (webhook_event.postback) {
+      handlePostback(sender_psid, webhook_event.postback);
+    }
 
     // Return a '200 OK' response to all events
     res.status(200).send('EVENT_RECEIVED');
@@ -75,7 +85,27 @@ let handlePostback = (sender_psid, received_postback)=> {
 
 // Sends response messages via the Send API
 let callSendAPI = (sender_psid, response) =>{
-  
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": { "text": response }
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/v15.0/me/messages",
+    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if(!err) {
+      console.log("message sent!");
+    } else {
+      console.error("Unable to send message:"+ err);
+    }
+  });
 };
 
 export {

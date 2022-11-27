@@ -184,6 +184,30 @@ let calSendAPIWithTemplate = (sender_psid) => {
                   "title": "Click"
                 }
               ]
+            },
+            {
+              "title": "Crochet Dolls",
+              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
+              "subtitle": "Crochet Dolls subtitle",
+              "buttons": [
+                {
+                  "type": "web_url",
+                  "url": "https://susu-bot.herokuapp.com",
+                  "title": "Click"
+                }
+              ]
+            },
+            {
+              "title": "Crochet Dolls",
+              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
+              "subtitle": "Crochet Dolls subtitle",
+              "buttons": [
+                {
+                  "type": "web_url",
+                  "url": "https://susu-bot.herokuapp.com",
+                  "title": "Click"
+                }
+              ]
             }
           ]
         }

@@ -1,27 +1,27 @@
-script>
+script >
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{api-version}'
+      appId: '{your-app-id}',
+      cookie: true,
+      xfbml: true,
+      version: '{api-version}'
     });
-      
-    FB.AppEvents.logPageView();   
-      
+
+    FB.AppEvents.logPageView();
+
   };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+(function (d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) { return; }
+  js = d.createElement(s); js.id = id;
+  js.src = "https://connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 
 
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
+FB.getLoginStatus(function (response) {
+  statusChangeCallback(response);
 });
 
 
@@ -37,16 +37,92 @@ FB.getLoginStatus(function(response) {
 // }
 
 
-<fb:login-button 
+<fb:login-button
   scope="public_profile,email"
   onlogin="checkLoginState();">
 </fb:login-button>
 
 
 function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+  FB.getLoginStatus(function (response) {
+    statusChangeCallback(response);
+  });
+}
 
-</script>
+</script >
+  // [MESSAGING]
+  // [{ 
+  //   "sender": 
+  //   { 
+  //     "id": "4518690248161445" 
+  //   }, 
+  //   "recipient": 
+  //   { 
+  //     "id": "1787439031468531" 
+  //   }, 
+  //   "timestamp": 1669550325076, 
+  //   "message": 
+  //   { 
+  //     "mid": "m_2GBMvD7GJOOCbu11FmktxiD_b6zWZ0U6iABKQ6vmClv0DgF_vL6SxCogG5-lvSpXqoyI4o5IHnsCNun6yBdpLA", 
+  //     "text": "hello", 
+  //     "nlp": 
+  //     { 
+  //       "entities": 
+  //       { 
+  //         "sentiment": 
+  //         [{ 
+  //           "confidence": 0.54351806640625, 
+  //           "value": "positive", 
+  //           "_entity": "sentiment" 
+  //         }, 
+  //         { 
+  //           "confidence": 0.43419978022575, 
+  //           "value": "neutral",
+  //           "_entity": "sentiment" 
+  //         }, 
+  //         { 
+  //           "confidence": 0.022282091900706, 
+  //           "value": "negative", 
+  //           "_entity": "sentiment" 
+  //         }], 
+  //         "bye": 
+  //         [{ 
+  //           "confidence": 0.29891657829285,
+  //           "value": "true", 
+  //           "_entity": "bye" 
+  //         }], 
+  //         "thanks": 
+  //         [{ 
+  //           "confidence": 0.05698436871171, 
+  //           "value": "true", 
+  //           "_entity": "thanks" 
+  //         }], 
+  //         "greetings": 
+  //         [{ 
+  //           "confidence": 0.99988770484924, 
+  //           "value": "true", 
+  //           "_entity": "greetings" 
+  //         }] 
+  //       }, 
+  //     "detected_locales": 
+  //     [{ 
+  //       "locale": "en_XX", 
+  //       "confidence": 0.5896 
+  //     }, 
+  //     { 
+  //       "locale": "vi_VN", 
+  //       "confidence": 0.3615 
+  //     }, 
+  //     { 
+  //       "locale": "hi_IN", 
+  //       "confidence": 0.0233 
+  //     }, 
+  //     { 
+  //       "locale": "bn_IN", 
+  //       "confidence": 0.0035 
+  //     }, 
+  //     { 
+  //       "locale": "id_ID", 
+  //       "confidence": 0.0033 
+  //     }] 
+  //   } } }]

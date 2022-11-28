@@ -1,5 +1,6 @@
+'use strict';
 import express from "express";
-import homepageController from "../controllers/homepageController";
+import * as homepageController from "../controllers/homepageController.js";
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -10,5 +11,4 @@ let initWebRoutes = (app) => {
 
     return app.use("/", router);
 };
-
-module.exports = initWebRoutes;
+export { initWebRoutes };

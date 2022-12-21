@@ -1,0 +1,31 @@
+{
+    "recipient":{
+      "id":"4518690248161445"
+    },
+    "message":{
+     "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"button",
+          "text":"Ban muon tim hieu thong tin ve",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"Dia Chi Shop",
+              "payload": "Address"
+            },
+            {
+              "type":"phone_number",
+              "title":"HotLine",
+              "payload": "+84914014406"
+            },
+            {
+              "type":"postback",
+              "title": "Cach Mua & Giao Hang",
+              "payload":"info"
+            }
+          ]
+        }
+      }
+    }
+  }

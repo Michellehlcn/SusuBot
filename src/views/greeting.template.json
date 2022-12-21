@@ -1,0 +1,41 @@
+{
+    "recipient":{
+      "id":"4518690248161445"
+    },
+    "message":{ 
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+             {
+              "title":"SusuShop",
+              "image_url":"https://i.ibb.co/zfrWwvb/311285146-482724763885727-3774812359597412412-n.jpg",
+              "subtitle":"We love things make you smile!",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/thubonglenDN/",
+                "webview_height_ratio": "tall"
+              },
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://www.facebook.com/thubonglenDN",
+                  "title":"Truy Cap Website"
+                },
+                {
+                  "type":"postback",
+                  "title":"Xem San Pham Gallery",
+                  "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                },{
+                  "type":"postback",
+                  "title":"Gui Tin nhan",
+                  "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                }              
+              ]      
+            }
+          ]
+        }
+      }
+    }
+    }

@@ -1,0 +1,123 @@
+{
+    "recipient":{
+      "id":"4518690248161445"
+    },
+    "message":{ 
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+             {
+              "title":"Dolls",
+              "image_url":"https://i.ibb.co/ZXkNTcs/317387421-518249160333287-5469185184961958228-n.jpg",
+              "subtitle":"@thubonglenDN",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/media/set/?set=a.2019002038312228&type=3",
+                "webview_height_ratio": "tall"
+              },
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://www.facebook.com/media/set/?set=a.2019002038312228&type=3",
+                  "title":"Truy Cap Dolls Album"
+                },
+                {
+                  "type":"postback",
+                  "title":"Xem Dolls Tieu Bieu",
+                  "payload": "Dolls"
+                },{
+                  "type":"postback",
+                  "title":"Quay Lai Menu",
+                  "payload":"Menu"
+                }              
+              ]      
+            }
+          ,
+             {
+              "title":"Animal",
+              "image_url":"https://i.ibb.co/6ZfMbk7/287438020-3267379826807770-6134631675370093725-n.jpg",
+              "subtitle":"@thubonglenDN",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/media/set/?set=a.2037219996490432&type=3",
+                "webview_height_ratio": "tall"
+              },
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://www.facebook.com/media/set/?set=a.2037219996490432&type=3",
+                  "title":"Truy Cap Animal Album"
+                },
+                {
+                  "type":"postback",
+                  "title":"Xem Animal Tieu bieu",
+                  "payload": "Animal"
+                },{
+                  "type":"postback",
+                  "title":"Quay Lai Menu",
+                  "payload":"Menu"
+                }              
+              ]      
+            }
+          ,
+          
+             {
+              "title":"Moc Chia Khoa (KeyChain)",
+              "image_url":"https://i.ibb.co/ncHtV8h/13521874-1787493441463090-4084777159008566609-n.jpg",
+              "subtitle":"@thubonglenDN",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/media/set/?set=a.1787493301463104&type=3",
+                "webview_height_ratio": "tall"
+              },
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://www.facebook.com/media/set/?set=a.1787493301463104&type=3",
+                  "title":"Truy Cap Moc Chia Khoa Album"
+                },
+                {
+                  "type":"postback",
+                  "title":"Xem Moc Chia Khoa Tieu Bieu",
+                  "payload": "keychain"
+                },{
+                  "type":"postback",
+                  "title":"Quay Lai Menu",
+                  "payload":"Menu"
+                }              
+              ]      
+            }
+            ,
+             {
+              "title":"Dat Hang Ca Nhan",
+              "image_url":"https://i.ibb.co/CWvFDv4/60329660-2348976958648066-1534606933145681920-n.jpg",
+              "subtitle":"@thubonglenDN",
+              "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/media/set/?set=a.2348972388648523&type=3",
+                "webview_height_ratio": "tall"
+              },
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "url":"https://www.facebook.com/media/set/?set=a.2348972388648523&type=3",
+                  "title":"Truy Cap Dat Hang Ca Nhan Album"
+                },
+                {
+                  "type":"postback",
+                  "title":"Xem Dat Hang Ca Nhan Tieu Bieu",
+                  "payload": "personalRequests"
+                },{
+                  "type":"postback",
+                  "title":"Quay Lai Menu",
+                  "payload":"Menu"
+                }              
+              ]      
+            }
+          ]
+        }
+      }
+    }
+    }

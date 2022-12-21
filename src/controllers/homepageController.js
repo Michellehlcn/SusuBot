@@ -2,9 +2,19 @@
 let getHomePage = (req, res) => {
   return res.render("homepage.ejs")
 };
+
+// Fix import json
+import * as fs from 'fs';
+const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
+
 // FIX ES6
+
 import { } from "dotenv/config";
 import request from "request";
+const menu = loadJSON("../views/greeting.template.json");
+const chattingReply = loadJSON("../views/chattingReply.template.json");
+const productGallery = loadJSON("../views/productGalleryReply.template.json");
+
 
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -58,9 +68,9 @@ let postWebHook = (req, res) => {
 
       // Check if the event is a message or postback and 
       // pass the event to the appropriate handler function
-      if (webhook_event.message) {
+      if (sender_psid !== "1787439031468531" && webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);
-      } else if (webhook_event.postback) {
+      } else if (sender_psid !== "1787439031468531" && webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
@@ -75,18 +85,38 @@ let postWebHook = (req, res) => {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
+  console.log("[POSTBACK] "+JSON.stringify(received_postback));
   let response;
 
   // Get the payload for the postback
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+  // if (payload === 'yes') {
+  //   response = { "text": "Thanks!" }
+  // } else if (payload === 'no') {
+  //   response = { "text": "Oops, try sending another image." }
+  // }
+  // callSendAPI(sender_psid, response);
+  switch (payload.toUpperCase()) {
+    case "ADDRESS":
+      callSendAPI(sender_psid," Liên hệ địa chỉ SuSu shop: \n 14 Trần Văn Thành, Đà Nẵng \n K432 H36/29 Võ Nguyên Giáp, Đà Nẵng (xưởng sản xuất) \n 94 Phan Bội Châu, TP Huế (CN)");
+      break;
+    case "MENU":
+      calSendAPIWithTemplate(sender_psid, "MENU");
+      break;
+    case "GALLERY":
+      calSendAPIWithTemplate(sender_psid,"GALLERY");
+      break;
+    case "CHATTINGREPLY":
+      calSendAPIWithTemplate(sender_psid, "CHATTINGREPLY");
+      break;
+    case "DOLL":
+      calSendAPIWithTemplate(sender_psid, "DOLL");
+      break;
+
+
   }
-  callSendAPI(sender_psid, response);
 };
 
 // Sends response messages via the Send API
@@ -119,114 +149,107 @@ function firstTrait(nlp, name) {
 }
 
 // Handles messages events
-function handleMessage(sender_psid, message) {
+async function handleMessage(sender_psid, message) {
   // handle message for react, like press like button
   // id like button
 
-  if (message && message.attachments && message.attachments[0].payload) {
-    callSendAPI(sender_psid, "Thank you for viewing the catalogs");
-    calSendAPIWithTemplate(sender_psid);
-    return;
-  }
-
-  let entitiesArr = ["greetings", "thanks", "bye"];
+  //if (message && message.attachments && message.attachments[0].payload) {
+  //  callSendAPI(sender_psid, "Thank you for viewing the catalogs");
+  //  calSendAPIWithTemplate(sender_psid);
+  //  return;
+  // }
+  console.log("[MESSAGE TEXT]"+message.text);
+  let entitiesArr = ["hello", "thanks", "bye"];
   let entityChosen = "";
   entitiesArr.forEach(name => {
     let entity = firstTrait(message.nlp, name);
     if (entity && message.nlp.entities[name].confidence > 0.8) {
+      console.log("does it get here");
       entityChosen = name;
     }
   });
 
-  if (entityChosen === "") {
-    //default
-    calSendAPIWithTemplate(sender_psid);
-    // callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
-  } else {
-    if (entityChosen === "greetings") {
-      // send greeting message
-      callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
-    }
-    if (entityChosen === "thanks") {
-      // send thanks message
-      callSendAPI(sender_psid, "You're welcome");
-    }
-    if (entityChosen === "bye") {
-      // send bye message
-      callSendAPI(sender_psid, 'bye-bye!');
-    }
+  switch (message.text.toUpperCase()) {
+    case "MENU":
+      calSendAPIWithTemplate(sender_psid, "MENU");
+      break;
+    case "XEM SAN PHAM GALLERY":
+      calSendAPIWithTemplate(sender_psid,"GALLERY");
+      break;
+
   }
 };
 
-let calSendAPIWithTemplate = (sender_psid) => {
+//   if (entityChosen === "") {
+//     console.log("[entitychosen=]------------or get here");
+//     //default
+//     calSendAPIWithTemplate(sender_psid);
+//     // callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
+//   } else {
+//     if (entityChosen === "greetings") {
+//       // send greeting message
+//       callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
+//     }
+//     if (entityChosen === "thanks") {
+//       // send thanks message
+//       callSendAPI(sender_psid, "You're welcome");
+//     }
+//     if (entityChosen === "bye") {
+//       // send bye message
+//       callSendAPI(sender_psid, 'bye-bye!');
+//     }
+//   }
+// };
+
+let calSendAPIWithTemplate = (sender_psid, type) => {
   // document fb message template
   // https://developers.facebook.com/docs/messenger-platform/send-messages/templates
   // https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
+
+
+  console.log("[TYPE] "+type);
+  let content ="";
+  switch (type) {
+    case "MENU":
+      content = menu 
+      break;
+    case "GALLERY":
+      content = productGallery;    
+      break;
+    case "CHATTINGREPLY":
+      content = chattingReply;
+      break;
+    case "DOLL":
+      content = doll;
+      break;
+    }
 
   let body = {
     "recipient": {
       "id": sender_psid
     },
-    "message": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": "Crochet Dolls",
-              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
-              "subtitle": "Crochet Dolls subtitle",
-              "buttons": [
-                {
-                  "type": "web_url",
-                  "url": "https://susu-bot.herokuapp.com",
-                  "title": "Click"
-                }
-              ]
-            },
-            {
-              "title": "Crochet Dolls",
-              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
-              "subtitle": "Crochet Dolls subtitle",
-              "buttons": [
-                {
-                  "type": "web_url",
-                  "url": "https://susu-bot.herokuapp.com",
-                  "title": "Click"
-                }
-              ]
-            },
-            {
-              "title": "Crochet Dolls",
-              "image_url": "https://www.nexmo.com/wp-content/uploads/2018/10/build-bot-messages-api-768x384.png",
-              "subtitle": "Crochet Dolls subtitle",
-              "buttons": [
-                {
-                  "type": "web_url",
-                  "url": "https://susu-bot.herokuapp.com",
-                  "title": "Click"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
+    "message": content
   };
+  if (type !== "DOLL" && type !== "ANIMAL" && type !== "KEYCHAIN") {
+    request({
+      "uri": "https://graph.facebook.com/v15.0/me/messages",
+      "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+      "method": "POST",
+      "json": body
+    }, (err, res, body) => {
+      if (!err) {
+        console.log(body);
+        console.log('message sent');
+      } else {
+        console.error("Unable to send message: " + err);
+      }
+    });
+  } else {
+    //dollList.forEach( d => )
+  }
 
-  request({
-    "uri": "https://graph.facebook.com/v15.0/me/messages",
-    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent');
-    } else {
-      console.error("Unable to send message: " + err);
-    }
-  });
+
+
 };
 export {
   getHomePage,
@@ -234,33 +257,3 @@ export {
   postWebHook
 };
 
-// Same response
-// [MESSAGING]
-// [{ 
-//   "sender": { "id": "4518690248161445" }, 
-//   "recipient": { "id": "1787439031468531" }, 
-//   "timestamp": 1669550325076, 
-//   "message": { 
-//     "mid": "m_2GBMvD7GJOOCbu11FmktxiD_b6zWZ0U6iABKQ6vmClv0DgF_vL6SxCogG5-lvSpXqoyI4o5IHnsCNun6yBdpLA", 
-//     "text": "hello", 
-//     "nlp": { 
-//       "entities": 
-//       { 
-//         "sentiment": 
-//         [{ 
-//           "confidence": 0.54351806640625, 
-//           "value": "positive" 
-//         }], 
-//         "greetings": 
-//         [{ 
-//           "confidence": 0.99988770484924, 
-//           "value": "true" 
-//         }] 
-//       }, 
-//       "detected_locales": 
-//       [{ 
-//         "locale": "en_XX", 
-//         "confidence": 0.5896 
-//       }] 
-//     } }
-//    }]

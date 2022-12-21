@@ -1,15 +1,11 @@
 {
-    "recipient":{
-      "id":"4518690248161445"
-    },
-    "message":{ 
       "attachment":{
         "type":"template",
         "payload":{
           "template_type":"generic",
           "elements":[
              {
-              "title":"Dolls",
+              "title":"Bup Be",
               "image_url":"https://i.ibb.co/ZXkNTcs/317387421-518249160333287-5469185184961958228-n.jpg",
               "subtitle":"@thubonglenDN",
               "default_action": {
@@ -21,11 +17,11 @@
                 {
                   "type":"web_url",
                   "url":"https://www.facebook.com/media/set/?set=a.2019002038312228&type=3",
-                  "title":"Truy Cap Dolls Album"
+                  "title":"Truy Cap Bup Be Album"
                 },
                 {
                   "type":"postback",
-                  "title":"Xem Dolls Tieu Bieu",
+                  "title":"Xem Bup Be Tieu Bieu",
                   "payload": "Dolls"
                 },{
                   "type":"postback",
@@ -36,7 +32,7 @@
             }
           ,
              {
-              "title":"Animal",
+              "title":"Thu Bong",
               "image_url":"https://i.ibb.co/6ZfMbk7/287438020-3267379826807770-6134631675370093725-n.jpg",
               "subtitle":"@thubonglenDN",
               "default_action": {
@@ -48,11 +44,11 @@
                 {
                   "type":"web_url",
                   "url":"https://www.facebook.com/media/set/?set=a.2037219996490432&type=3",
-                  "title":"Truy Cap Animal Album"
+                  "title":"Truy Cap Thu Bong Album"
                 },
                 {
                   "type":"postback",
-                  "title":"Xem Animal Tieu bieu",
+                  "title":"Xem Thu Bong Tieu bieu",
                   "payload": "Animal"
                 },{
                   "type":"postback",
@@ -119,5 +115,4 @@
           ]
         }
       }
-    }
     }

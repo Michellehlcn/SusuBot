@@ -3,13 +3,16 @@ let getHomePage = (req, res) => {
   return res.render("homepage.ejs")
 };
 
-// Fix import json
+/** Fix import json
+https://vercel.com/docs/concepts/functions/serverless-functions/runtimes#advanced-usage/technical-details/including-additional-files
+**/
 import { readFileSync } from 'fs';
 import path from 'path';
 import * as fs from 'fs';
 const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
 function loadPath(name) {
-  const file = path.join(process.cwd(), 'src/views',name);
+  
+  const file = path.join(process.cwd(), 'src/views', name);
   const stringified = readFileSync(file, 'utf8');
   return stringified;
 }
@@ -18,6 +21,8 @@ function loadPath(name) {
 
 import { } from "dotenv/config";
 import request from "request";
+
+
 
 const menu = loadPath("greeting.template.json");
 const chattingReply = loadPath("chattingReply.template.json");

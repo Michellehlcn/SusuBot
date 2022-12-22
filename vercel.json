@@ -6,8 +6,10 @@
         "use": "@vercel/node"
       }
     ],
-    "experimental": { 
-        "nftTracing": true 
+    "functions": {
+        "api/test.js": {
+          "includeFiles": "srcfix vercel/**"
+        }
       },
     "routes": [
       {

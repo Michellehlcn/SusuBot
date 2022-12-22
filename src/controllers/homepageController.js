@@ -103,7 +103,7 @@ function handlePostback(sender_psid, received_postback) {
   // callSendAPI(sender_psid, response);
   switch (payload.toUpperCase()) {
     case "INFO":
-      callSendAPI(sender_psid, "Chuyên cung cấp thú bông hand-made bằng len - Cam kết mẫu mã phong phú theo album có sẵn / mẫu khách đặt riêng - Giá cả phải chăng");
+      callSendAPI(sender_psid, "De Dat mua hang tai SusuShop @thubonglenDN, ban vui xem san pham va gui tin nhan, mot trong nhung nhan vien cua chung toi se tu van cho ban. Chung toi nhan giao hang toan quoc, phi chuyen phat nhanh duoc tinh trong gia san pham. Ban neu can them thong tin chi tiet xin goi toi so +84914014406 de duoc tu van mien phi.");
       break;
     case "ADDRESS":
       callSendAPI(sender_psid, " Liên hệ địa chỉ SuSu shop: \n 14 Trần Văn Thành, Đà Nẵng \n K432 H36/29 Võ Nguyên Giáp, Đà Nẵng (xưởng sản xuất) \n 94 Phan Bội Châu, TP Huế (CN)");
@@ -128,6 +128,9 @@ function handlePostback(sender_psid, received_postback) {
       break;
     case "PERSONALREQUEST":
       calSendAPIWithTemplate(sender_psid, "PERSONALREQUEST");
+      break;
+    default:
+      callSendAPI(sender_psid, "Ban Vui Long cho trong giay lat. Mot trong nhan vien cua chung toi se giup do va tu van cho ban.");
       break;
 
   }
@@ -188,6 +191,8 @@ async function handleMessage(sender_psid, message) {
       break;
     case "XEM SAN PHAM GALLERY":
       calSendAPIWithTemplate(sender_psid, "GALLERY");
+      break;
+    default:
       break;
 
   }

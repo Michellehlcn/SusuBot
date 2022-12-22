@@ -7,7 +7,7 @@
       }
     ],
     "functions": {
-        "api/test.js": {
+        "api/webhook.js": {
           "includeFiles": "srcfix vercel/**"
         }
       },

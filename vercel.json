@@ -6,7 +6,9 @@
         "use": "@vercel/node"
       }
     ],
-    "output": "standalone",
+    "experimental": { 
+        "nftTracing": true 
+      },
     "routes": [
       {
         "src": "/(.*)",

@@ -1,5 +1,5 @@
 'use strict';
-import express from "express";
+const express = require("express");
 
 /*
 Config view engine for node app
@@ -10,6 +10,5 @@ let configViewEngine = (app) => {
     app.set("view engine", "ejs");
     app.set("views", "./src/views");
 };
-
-export {configViewEngine};
+module.exports = configViewEngine;
 

@@ -9,8 +9,12 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/api/webhook(.*)",
         "dest": "src/server.js"
+      },
+      {
+        "src": "/",
+        "dest": "src/views/homepage.ejs"
       }
     ]
   }

@@ -1,5 +1,5 @@
 'use strict';
-import { config } from "dotenv";
+//import { config } from "dotenv";
 import express from "express";
 import * as viewEngine from "./config/viewEngine.js";
 import * as initWebRoute from "./routes/web.js";
@@ -9,7 +9,7 @@ let app = express()
 app.use(bodyParser.json());
 
 // Verify that the callback cam from Facebook
-function verifyRequestSignature(req, res, buf) {
+/*function verifyRequestSignature(req, res, buf) {
     var signature = req.headers["x-hub-signature-256"];
 
     if (!signature) {
@@ -26,7 +26,7 @@ function verifyRequestSignature(req, res, buf) {
         }
     }
 }
-
+*/
 // config view engine
 viewEngine.configViewEngine(app);
 

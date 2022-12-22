@@ -1,13 +1,9 @@
 {
-    "recipient":{
-      "id":"4518690248161445"
-    },
-    "message":{
      "attachment":{
         "type":"template",
         "payload":{
           "template_type":"button",
-          "text":"Ban muon tim hieu thong tin ve",
+          "text":"Ban muon tim hieu thong tin ve? ",
           "buttons":[
             {
               "type":"postback",
@@ -28,4 +24,3 @@
         }
       }
     }
-  }

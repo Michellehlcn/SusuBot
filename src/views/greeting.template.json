@@ -1,8 +1,4 @@
 {
-    "recipient":{
-      "id":"4518690248161445"
-    },
-    "message":{ 
       "attachment":{
         "type":"template",
         "payload":{
@@ -11,7 +7,8 @@
              {
               "title":"SusuShop",
               "image_url":"https://i.ibb.co/zfrWwvb/311285146-482724763885727-3774812359597412412-n.jpg",
-              "subtitle":"We love things make you smile!",
+              "subtitle":"@thubonglenDN | We love things make you smile!",
+        
               "default_action": {
                 "type": "web_url",
                 "url": "https://www.facebook.com/thubonglenDN/",
@@ -25,17 +22,16 @@
                 },
                 {
                   "type":"postback",
-                  "title":"Xem San Pham Gallery",
-                  "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                  "title":"Xem Album San Pham",
+                  "payload": "gallery"
                 },{
                   "type":"postback",
-                  "title":"Gui Tin nhan",
-                  "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                  "title":"Tim hieu thong tin khac",
+                  "payload":"chattingReply"
                 }              
               ]      
             }
           ]
         }
       }
-    }
     }

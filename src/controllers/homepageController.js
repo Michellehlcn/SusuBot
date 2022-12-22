@@ -11,6 +11,7 @@ import path from 'path';
 import * as fs from 'fs';
 const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
 function loadPath(name) {
+  {root: path.join(__dirname, 'public')}
   const file = path.join(process.cwd(), 'src/views', name);
   const stringified = readFileSync(file, 'utf8');
   return stringified;

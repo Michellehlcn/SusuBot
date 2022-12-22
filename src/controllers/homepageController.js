@@ -20,7 +20,7 @@ https://vercel.com/docs/concepts/functions/serverless-functions/runtimes#advance
 // FIX ES6
 
 //import { } from "dotenv/config";
-import * as request from "request";
+import request from "request";
 
 
 

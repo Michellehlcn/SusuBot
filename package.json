@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Facebook Messenger Bot for online crochet shop",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
@@ -30,7 +29,9 @@
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
-    "request": "^2.88.2"
+    "pre-commit": "^1.2.2",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

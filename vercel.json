@@ -6,11 +6,7 @@
         "use": "@vercel/node"
       }
     ],
-     "functions": {
-          "src/server.js": {
-            "includeFiles": "src/views/**"
-          }
-        },
+    "output": "standalone",
     "routes": [
       {
         "src": "/(.*)",

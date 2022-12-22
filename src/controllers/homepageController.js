@@ -6,16 +6,16 @@ let getHomePage = (req, res) => {
 /** Fix import json
 https://vercel.com/docs/concepts/functions/serverless-functions/runtimes#advanced-usage/technical-details/including-additional-files
 **/
-import { readFileSync } from 'fs';
-import path from 'path';
-import * as fs from 'fs';
-const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
-function loadPath(name) {
+// import { readFileSync } from 'fs';
+// import path from 'path';
+// import * as fs from 'fs';
+// const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
+// function loadPath(name) {
   
-  const file = path.join(process.cwd(), 'src/views', name);
-  const stringified = readFileSync(file, 'utf8');
-  return stringified;
-}
+//   const file = path.join(process.cwd(), 'src/views', name);
+//   const stringified = readFileSync(file, 'utf8');
+//   return stringified;
+// }
 
 // FIX ES6
 

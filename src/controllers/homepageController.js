@@ -4,20 +4,37 @@ let getHomePage = (req, res) => {
 };
 
 // Fix import json
+import { readFileSync } from 'fs';
+import path from 'path';
 import * as fs from 'fs';
 const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
+function loadPath(name) {
+  const file = path.join(process.cwd(), 'src/views',name);
+  const stringified = readFileSync(file, 'utf8');
+  return stringified;
+}
 
 // FIX ES6
 
 import { } from "dotenv/config";
 import request from "request";
-const menu = loadJSON("../views/greeting.template.json");
-const chattingReply = loadJSON("../views/chattingReply.template.json");
-const productGallery = loadJSON("../views/productGalleryReply.template.json");
-const dollList = loadJSON("../views/dollList.json");
-const animalList = loadJSON("../views/animalList.json");
-const keychainList = loadJSON("../views/keychainList.json");
-const personalRequestList = loadJSON("../views/personalRequestList.json");
+
+const menu = loadPath("greeting.template.json");
+const chattingReply = loadPath("chattingReply.template.json");
+const productGallery = loadPath("productGalleryReply.template.json");
+const dollList = loadPath("dollList.json");
+const animalList = loadPath("animalList.json");
+const keychainList = loadPath("keychainList.json");
+const personalRequestList = loadPath("personalRequestList.json");
+
+
+// const menu = loadJSON("../views/greeting.template.json");
+// const chattingReply = loadJSON("../views/chattingReply.template.json");
+// const productGallery = loadJSON("../views/productGalleryReply.template.json");
+// const dollList = loadJSON("../views/dollList.json");
+// const animalList = loadJSON("../views/animalList.json");
+// const keychainList = loadJSON("../views/keychainList.json");
+// const personalRequestList = loadJSON("../views/personalRequestList.json");
 
 const MY_VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 

@@ -24,13 +24,343 @@ import request from "request";
 
 
 
-const menu = loadPath("greeting.template.json");
-const chattingReply = loadPath("chattingReply.template.json");
-const productGallery = loadPath("productGalleryReply.template.json");
-const dollList = loadPath("dollList.json");
-const animalList = loadPath("animalList.json");
-const keychainList = loadPath("keychainList.json");
-const personalRequestList = loadPath("personalRequestList.json");
+const menu = {
+  "attachment":{
+    "type":"template",
+    "payload":{
+      "template_type":"generic",
+      "elements":[
+         {
+          "title":"SusuShop",
+          "image_url":"https://i.ibb.co/zfrWwvb/311285146-482724763885727-3774812359597412412-n.jpg",
+          "subtitle":"@thubonglenDN | We love things make you smile!",
+    
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com/thubonglenDN/",
+            "webview_height_ratio": "tall"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/thubonglenDN",
+              "title":"Truy Cap Website"
+            },
+            {
+              "type":"postback",
+              "title":"Xem Album San Pham",
+              "payload": "gallery"
+            },{
+              "type":"postback",
+              "title":"Tim hieu thong tin khac",
+              "payload":"chattingReply"
+            }              
+          ]      
+        }
+      ]
+    }
+  }
+}
+;
+const chattingReply = {
+  "attachment":{
+     "type":"template",
+     "payload":{
+       "template_type":"button",
+       "text":"Ban muon tim hieu thong tin ve? ",
+       "buttons":[
+         {
+           "type":"postback",
+           "title":"Dia Chi Shop",
+           "payload": "Address"
+         },
+         {
+           "type":"phone_number",
+           "title":"HotLine",
+           "payload": "+84914014406"
+         },
+         {
+           "type":"postback",
+           "title": "Cach Mua & Giao Hang",
+           "payload":"info"
+         }
+       ]
+     }
+   }
+ };
+
+const productGallery = {
+  "attachment":{
+    "type":"template",
+    "payload":{
+      "template_type":"generic",
+      "elements":[
+         {
+          "title":"Bup Be",
+          "image_url":"https://i.ibb.co/ZXkNTcs/317387421-518249160333287-5469185184961958228-n.jpg",
+          "subtitle":"@thubonglenDN",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com/media/set/?set=a.2019002038312228&type=3",
+            "webview_height_ratio": "tall"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/media/set/?set=a.2019002038312228&type=3",
+              "title":"Truy Cap Bup Be Album"
+            },
+            {
+              "type":"postback",
+              "title":"Xem Bup Be Tieu Bieu",
+              "payload": "Doll"
+            },{
+              "type":"postback",
+              "title":"Quay Lai Menu",
+              "payload":"Menu"
+            }              
+          ]      
+        }
+      ,
+         {
+          "title":"Thu Bong",
+          "image_url":"https://i.ibb.co/6ZfMbk7/287438020-3267379826807770-6134631675370093725-n.jpg",
+          "subtitle":"@thubonglenDN",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com/media/set/?set=a.2037219996490432&type=3",
+            "webview_height_ratio": "tall"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/media/set/?set=a.2037219996490432&type=3",
+              "title":"Truy Cap Thu Bong Album"
+            },
+            {
+              "type":"postback",
+              "title":"Xem Thu Bong Tieu bieu",
+              "payload": "Animal"
+            },{
+              "type":"postback",
+              "title":"Quay Lai Menu",
+              "payload":"Menu"
+            }              
+          ]      
+        }
+      ,
+      
+         {
+          "title":"Moc Chia Khoa (KeyChain)",
+          "image_url":"https://i.ibb.co/ncHtV8h/13521874-1787493441463090-4084777159008566609-n.jpg",
+          "subtitle":"@thubonglenDN",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com/media/set/?set=a.1787493301463104&type=3",
+            "webview_height_ratio": "tall"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/media/set/?set=a.1787493301463104&type=3",
+              "title":"Truy Cap Moc Chia Khoa Album"
+            },
+            {
+              "type":"postback",
+              "title":"Xem Moc Chia Khoa Tieu Bieu",
+              "payload": "keychain"
+            },{
+              "type":"postback",
+              "title":"Quay Lai Menu",
+              "payload":"Menu"
+            }              
+          ]      
+        }
+        ,
+         {
+          "title":"Dat Hang Ca Nhan",
+          "image_url":"https://i.ibb.co/CWvFDv4/60329660-2348976958648066-1534606933145681920-n.jpg",
+          "subtitle":"@thubonglenDN",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://www.facebook.com/media/set/?set=a.2348972388648523&type=3",
+            "webview_height_ratio": "tall"
+          },
+          "buttons":[
+            {
+              "type":"web_url",
+              "url":"https://www.facebook.com/media/set/?set=a.2348972388648523&type=3",
+              "title":"Truy Cap Dat Hang Ca Nhan Album"
+            },
+            {
+              "type":"postback",
+              "title":"Xem Dat Hang Ca Nhan Tieu Bieu",
+              "payload": "personalRequest"
+            },{
+              "type":"postback",
+              "title":"Quay Lai Menu",
+              "payload":"Menu"
+            }              
+          ]      
+        }
+      ]
+    }
+  }
+};
+const dollList = {
+  "doll": [
+      {
+          "id": "1",
+          "name": "D001",
+          "desc": "Blond girl in green skirt",
+          "url": "https://www.facebook.com/photo/?fbid=2135034296709001&set=a.2019002038312228"
+      },
+      {
+          "id": "2",
+          "name": "D002",
+          "desc": "",
+          "url": "https://www.facebook.com/photo/?fbid=2144439765768454&set=a.2019002038312228"
+      },
+      {
+          "id": "3",
+          "name": "D003",
+          "desc": "",
+          "url": "https://www.facebook.com/photo/?fbid=2462556990623395&set=a.2019002038312228"
+      },
+      {
+          "id": "4",
+          "name": "D004",
+          "desc": "Harry Porter",
+          "url": "https://www.facebook.com/photo/?fbid=2634715323407560&set=a.2019002038312228"
+      },
+      {
+          "id": "5",
+          "name": "D005",
+          "desc": "",
+          "url": "https://www.facebook.com/photo/?fbid=2656760467869712&set=a.2019002038312228"
+      },
+      {
+          "id": "6",
+          "name": "D006",
+          "desc": "Police Man",
+          "url": "https://www.facebook.com/photo/?fbid=2675540369325055&set=a.2019002038312228"
+      },
+      {
+          "id": "7",
+          "name": "D007",
+          "desc": "red ao dai girl",
+          "url": "https://www.facebook.com/photo/?fbid=2919554181590338&set=a.2019002038312228"
+      },
+      {
+          "id": "8",
+          "name": "D008",
+          "desc": "bride",
+          "url": "https://www.facebook.com/photo/?fbid=3349166275295791&set=a.2019002038312228"
+      }
+  ]
+};
+const animalList = {
+  "animal": [
+      {
+          "id": "1",
+          "name": "A001",
+          "desc": "Pink Bunny",
+          "url": "https://www.facebook.com/photo/?fbid=3267379830141103&set=a.2037219996490432"
+      },
+      {
+          "id": "2",
+          "name": "A002",
+          "desc": "Teddy Bear",
+          "url": "https://www.facebook.com/photo/?fbid=2473965912815836&set=a.2037219996490432"
+      },
+      {
+          "id": "3",
+          "name": "A003",
+          "desc": "Squirrel",
+          "url": "https://www.facebook.com/photo/?fbid=2357413771137718&set=a.2037219996490432"
+      },
+      {
+          "id": "4",
+          "name": "A004",
+          "desc": "Unicorn",
+          "url": "https://www.facebook.com/photo?fbid=533626918795511&set=a.2037219996490432"
+      },
+      {
+          "id": "5",
+          "name": "A005",
+          "desc": "Sausage",
+          "url": "https://www.facebook.com/photo/?fbid=2367445466801215&set=a.2037219996490432"
+      },
+      {
+          "id": "6",
+          "name": "A006",
+          "desc": "Max",
+          "url": "https://www.facebook.com/photo/?fbid=2270913509787745&set=a.2037219996490432"
+      }
+  ]
+};
+const keychainList = {
+  "keychain": [
+      {
+          "id": "1",
+          "name": "K001",
+          "desc": "B",
+          "url": "https://www.facebook.com/photo/?fbid=1957071847838581&set=a.1787493301463104"
+      },
+      {
+          "id": "2",
+          "name": "K002",
+          "desc": "Doraemon",
+          "url": "https://www.facebook.com/photo/?fbid=1957071804505252&set=a.1787493301463104"
+      },
+      {
+          "id": "3",
+          "name": "K003",
+          "desc": "Tiger",
+          "url": "https://www.facebook.com/photo/?fbid=1957071901171909&set=a.1787493301463104"
+      },
+      {
+          "id": "4",
+          "name": "K004",
+          "desc": "Banana",
+          "url": "https://www.facebook.com/photo/?fbid=1957071977838568&set=a.1787493301463104"
+      },
+      {
+          "id": "5",
+          "name": "K005",
+          "desc": "Dog",
+          "url": "https://www.facebook.com/photo/?fbid=2085171028361995&set=a.1787493301463104"
+      },
+      {
+          "id": "6",
+          "name": "K006",
+          "desc": "Workers",
+          "url": "https://www.facebook.com/photo/?fbid=3060365067509248&set=a.1787493301463104"
+      }
+  ]
+};
+const personalRequestList = {
+  "personalrequest": [
+      {
+          "id": "1",
+          "name": "P001",
+          "desc": "KIKI",
+          "url": "https://www.facebook.com/photo/?fbid=2348976951981400&set=a.2348972388648523"
+      },
+      {
+          "id": "2",
+          "name": "P002",
+          "desc": "LOKI",
+          "url": "https://www.facebook.com/photo/?fbid=2348976595314769&set=a.2348972388648523"
+      },
+      {
+          "id": "3",
+          "name": "P003",
+          "desc": "",
+          "url": "https://www.facebook.com/photo/?fbid=2348976881981407&set=a.2348972388648523"
+      }
+  ]
+};
 
 
 // const menu = loadJSON("../views/greeting.template.json");

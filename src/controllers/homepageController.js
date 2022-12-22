@@ -20,7 +20,7 @@ https://vercel.com/docs/concepts/functions/serverless-functions/runtimes#advance
 // FIX ES6
 
 //import { } from "dotenv/config";
-import request from "request";
+const request = require("request");
 
 
 
@@ -685,7 +685,7 @@ function sendMultiRequestAPI(sender_psid, key, tag) {
     }
   });
 };
-export {
+module.exports = {
   getHomePage,
   getWebHook,
   postWebHook

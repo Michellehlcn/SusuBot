@@ -418,13 +418,14 @@ let postWebHook = (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
+      let receiver_psid = webhook_event.recipient.id;
       console.log('Sender PSID: ' + sender_psid);
 
 
       // Check if the event is a message or postback and 
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
+        handleMessage(sender_psid, receiver_psid, webhook_event.message);
       } else if (sender_psid !== "1787439031468531" && webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -518,7 +519,7 @@ function firstTrait(nlp, name) {
 }
 
 // Handles messages events
-async function handleMessage(sender_psid, message) {
+async function handleMessage(sender_psid, receiver_psid,message) {
   // handle message for react, like press like button
   // id like button
 
@@ -527,12 +528,14 @@ async function handleMessage(sender_psid, message) {
   //  calSendAPIWithTemplate(sender_psid);
   //  return;
   // }
-  console.log("[MESSAGE TEXT]" + message.text);
   
+
   if (sender_psid === "1787439031468531") {
+    if ( message.text !== 'undefined') {
+
     // For greeting message from Shop, attach Menu Template message
     const regex = /(^|\s)@thubonglenDN(\s|$)/gmi;
-
+    console.log("[MESSAGE TEXT]" + message.text);
     // Alternative syntax using RegExp constructor
     // const regex = new RegExp('(^|\\s)@thubonglenDN(\\s|$)', 'gmi')
 
@@ -543,10 +546,12 @@ async function handleMessage(sender_psid, message) {
     const result = str.match(regex);
     if (result !== null) {
       console.log("[MENU MATCH]");
-      calSendAPIWithTemplate(sender_psid, "MENU");
+      calSendAPIWithTemplate(receiver_psid, "MENU");
 
     }
+  }
   } else {
+    console.log("[MESSAGE TEXT]" + message.text);
     switch (message.text.toUpperCase()) {
       case "MENU":
         calSendAPIWithTemplate(sender_psid, "MENU");

@@ -519,7 +519,7 @@ function firstTrait(nlp, name) {
 }
 
 // Handles messages events
-async function handleMessage(sender_psid, receiver_psid,message) {
+async function handleMessage(sender_psid, receiver_psid, message) {
   // handle message for react, like press like button
   // id like button
 
@@ -528,28 +528,32 @@ async function handleMessage(sender_psid, receiver_psid,message) {
   //  calSendAPIWithTemplate(sender_psid);
   //  return;
   // }
-  
+
 
   if (sender_psid === process.env.SUSUSHOP_ID) {
-    if ( message.text !== 'undefined') {
+    if (message.text !== 'undefined') {
 
-    // For greeting message from Shop, attach Menu Template message
-    const regex = /(^|\s)@thubonglenDN(\s|$)/gmi;
-    console.log("[MESSAGE TEXT]" + message.text);
-    // Alternative syntax using RegExp constructor
-    // const regex = new RegExp('(^|\\s)@thubonglenDN(\\s|$)', 'gmi')
+      // For greeting message from Shop, attach Menu Template message
+      const regex = /(^|\s)@thubonglenDN(\s|$)/gmi;
+      console.log("[MESSAGE TEXT]" + message.text);
+      // Alternative syntax using RegExp constructor
+      // const regex = new RegExp('(^|\\s)@thubonglenDN(\\s|$)', 'gmi')
 
-    const str = message.text;
-    const subst = ``;
+      const str = message.text;
+      const subst = ``;
 
-    // The substituted value will be contained in the result variable
-    const result = str.match(regex);
-    if (result !== null) {
-      console.log("[MENU MATCH]");
-      calSendAPIWithTemplate(receiver_psid, "MENU");
+      // The substituted value will be contained in the result variable
+      try {
+        const result = str.match(regex);
+        if (result !== null) {
+          console.log("[MENU MATCH]");
+          calSendAPIWithTemplate(receiver_psid, "MENU");
 
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
   } else {
     console.log("[MESSAGE TEXT]" + message.text);
     switch (message.text.toUpperCase()) {

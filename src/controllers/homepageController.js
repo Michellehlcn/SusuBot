@@ -455,7 +455,7 @@ function handlePostback(sender_psid, received_postback) {
   // callSendAPI(sender_psid, response);
   switch (payload.toUpperCase()) {
     case "INFO":
-      callSendAPI(sender_psid, "De Dat mua hang tai SusuShop @thubonglenDN, ban vui xem san pham va gui tin nhan, mot trong nhung nhan vien cua chung toi se tu van cho ban. Chung toi nhan giao hang toan quoc, phi chuyen phat nhanh duoc tinh trong gia san pham. Ban neu can them thong tin chi tiet xin goi toi so +84914014406 de duoc tu van mien phi.");
+      callSendAPI(sender_psid, "De Dat mua hang tai SusuShop @thubonglenDN, ban vui xem san pham va gui tin nhan, mot trong nhung nhan vien cua chung toi se tu van cho ban. Chung toi nhan giao hang toan quoc thong qua chuyen phat nhanh. Ban neu can them thong tin chi tiet xin goi toi so +84914014406 de duoc tu van mien phi.");
       break;
     case "ADDRESS":
       callSendAPI(sender_psid, " Liên hệ địa chỉ SuSu shop: \n 14 Trần Văn Thành, Đà Nẵng \n K432 H36/29 Võ Nguyên Giáp, Đà Nẵng (xưởng sản xuất) \n 94 Phan Bội Châu, TP Huế (CN)");
@@ -528,14 +528,14 @@ async function handleMessage(sender_psid, message) {
   //  return;
   // }
   console.log("[MESSAGE TEXT]" + message.text);
-  let entitiesArr = ["hello", "thanks", "bye"];
-  let entityChosen = "";
-  entitiesArr.forEach(name => {
-    let entity = firstTrait(message.nlp, name);
-    if (entity && message.nlp.entities[name].confidence > 0.8) {
-      entityChosen = name;
-    }
-  });
+  // let entitiesArr = ["hello", "thanks", "bye"];
+  // let entityChosen = "";
+  // entitiesArr.forEach(name => {
+  //   let entity = firstTrait(message.nlp, name);
+  //   if (entity && message.nlp.entities[name].confidence > 0.8) {
+  //     entityChosen = name;
+  //   }
+  // });
 
   switch (message.text.toUpperCase()) {
     case "MENU":
@@ -543,8 +543,6 @@ async function handleMessage(sender_psid, message) {
       break;
     case "XEM SAN PHAM GALLERY":
       calSendAPIWithTemplate(sender_psid, "GALLERY");
-      break;
-    default:
       break;
 
   }

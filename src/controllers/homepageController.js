@@ -556,6 +556,9 @@ async function handleMessage(sender_psid, receiver_psid,message) {
       case "MENU":
         calSendAPIWithTemplate(sender_psid, "MENU");
         break;
+      case ("Bạn có thể giới thiệu gì đó cho tôi không?").toUpperCase():
+        calSendAPIWithTemplate(sender_psid, "MENU");
+        break;
       case "XEM SAN PHAM GALLERY":
         calSendAPIWithTemplate(sender_psid, "GALLERY");
         break;

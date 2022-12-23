@@ -482,7 +482,7 @@ function handlePostback(sender_psid, received_postback) {
     case "PERSONALREQUEST":
       calSendAPIWithTemplate(sender_psid, "PERSONALREQUEST");
       break;
-    default:
+    case "ASKINGPRICE":
       callSendAPI(sender_psid, "Ban Vui Long cho trong giay lat. Mot trong nhan vien cua chung toi se giup do va tu van cho ban.");
       break;
 

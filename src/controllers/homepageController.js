@@ -426,7 +426,7 @@ let postWebHook = (req, res) => {
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
         handleMessage(sender_psid, receiver_psid, webhook_event.message);
-      } else if (sender_psid !== "1787439031468531" && webhook_event.postback) {
+      } else if (sender_psid !== process.env.SUSUSHOP_ID && webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
@@ -530,7 +530,7 @@ async function handleMessage(sender_psid, receiver_psid,message) {
   // }
   
 
-  if (sender_psid === "1787439031468531") {
+  if (sender_psid === process.env.SUSUSHOP_ID) {
     if ( message.text !== 'undefined') {
 
     // For greeting message from Shop, attach Menu Template message

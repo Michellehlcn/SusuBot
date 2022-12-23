@@ -532,106 +532,174 @@ async function handleMessage(sender_psid, receiver_psid, message) {
 
   if (sender_psid === process.env.SUSUSHOP_ID) {
     if (message.text !== 'undefined') {
-
+      console.log("[MESSAGE TEXT]" + message.text);
       // For greeting message from Shop, attach Menu Template message
       const regex = /(^|\s)@thubonglenDN(\s|$)/gmi;
-      console.log("[MESSAGE TEXT]" + message.text);
+
       // Alternative syntax using RegExp constructor
       // const regex = new RegExp('(^|\\s)@thubonglenDN(\\s|$)', 'gmi')
 
       const str = message.text;
-      const subst = ``;
 
       // The substituted value will be contained in the result variable
-      try {
+      if (str) {
         const result = str.match(regex);
         if (result !== null) {
           console.log("[MENU MATCH]");
           calSendAPIWithTemplate(receiver_psid, "MENU");
-
         }
-      } catch (e) {
-        console.log(e);
       }
     }
-  } else {
-    console.log("[MESSAGE TEXT]" + message.text);
-    switch (message.text.toUpperCase()) {
-      case "MENU":
-        calSendAPIWithTemplate(sender_psid, "MENU");
-        break;
-      case ("Bạn có thể giới thiệu gì đó cho tôi không?").toUpperCase():
-        calSendAPIWithTemplate(sender_psid, "MENU");
-        break;
-      case "XEM SAN PHAM GALLERY":
-        calSendAPIWithTemplate(sender_psid, "GALLERY");
-        break;
-      case ("Tôi có thể xem các sản phẩm khác không?").toUpperCase():
-        calSendAPIWithTemplate(sender_psid, "GALLERY");
-        break;
+    } else {
+      console.log("[MESSAGE TEXT]" + message.text);
+      switch (message.text.toUpperCase()) {
+        case "MENU":
+          calSendAPIWithTemplate(sender_psid, "MENU");
+          break;
+        case ("Bạn có thể giới thiệu gì đó cho tôi không?").toUpperCase():
+          calSendAPIWithTemplate(sender_psid, "MENU");
+          break;
+        case "XEM SAN PHAM GALLERY":
+          calSendAPIWithTemplate(sender_psid, "GALLERY");
+          break;
+        case ("Tôi có thể xem các sản phẩm khác không?").toUpperCase():
+          calSendAPIWithTemplate(sender_psid, "GALLERY");
+          break;
 
+      }
     }
-  }
-  // let entitiesArr = ["hello", "thanks", "bye"];
-  // let entityChosen = "";
-  // entitiesArr.forEach(name => {
-  //   let entity = firstTrait(message.nlp, name);
-  //   if (entity && message.nlp.entities[name].confidence > 0.8) {
-  //     entityChosen = name;
+    // let entitiesArr = ["hello", "thanks", "bye"];
+    // let entityChosen = "";
+    // entitiesArr.forEach(name => {
+    //   let entity = firstTrait(message.nlp, name);
+    //   if (entity && message.nlp.entities[name].confidence > 0.8) {
+    //     entityChosen = name;
+    //   }
+    // });
+
+  };
+
+  //   if (entityChosen === "") {
+  //     console.log("[entitychosen=]------------or get here");
+  //     //default
+  //     calSendAPIWithTemplate(sender_psid);
+  //     // callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
+  //   } else {
+  //     if (entityChosen === "greetings") {
+  //       // send greeting message
+  //       callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
+  //     }
+  //     if (entityChosen === "thanks") {
+  //       // send thanks message
+  //       callSendAPI(sender_psid, "You're welcome");
+  //     }
+  //     if (entityChosen === "bye") {
+  //       // send bye message
+  //       callSendAPI(sender_psid, 'bye-bye!');
+  //     }
   //   }
-  // });
+  // };
 
-};
-
-//   if (entityChosen === "") {
-//     console.log("[entitychosen=]------------or get here");
-//     //default
-//     calSendAPIWithTemplate(sender_psid);
-//     // callSendAPI(sender_psid, `The bot is needed more training, try to say "thanks a lot" or "hi" to the bot`);
-//   } else {
-//     if (entityChosen === "greetings") {
-//       // send greeting message
-//       callSendAPI(sender_psid, "Hi there! this is SusuBot, Welcome to Susu Shop");
-//     }
-//     if (entityChosen === "thanks") {
-//       // send thanks message
-//       callSendAPI(sender_psid, "You're welcome");
-//     }
-//     if (entityChosen === "bye") {
-//       // send bye message
-//       callSendAPI(sender_psid, 'bye-bye!');
-//     }
-//   }
-// };
-
-let calSendAPIWithTemplate = (sender_psid, type) => {
-  /**document fb message template
-    https://developers.facebook.com/docs/messenger-platform/send-messages/templates
-    https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
-  **/
+  let calSendAPIWithTemplate = (sender_psid, type) => {
+    /**document fb message template
+      https://developers.facebook.com/docs/messenger-platform/send-messages/templates
+      https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
+    **/
 
 
-  console.log("[TYPE] " + type);
-  let content = "";
-  switch (type) {
-    case "MENU":
-      content = menu
-      break;
-    case "GALLERY":
-      content = productGallery;
-      break;
-    case "CHATTINGREPLY":
-      content = chattingReply;
-      break;
-  }
+    console.log("[TYPE] " + type);
+    let content = "";
+    switch (type) {
+      case "MENU":
+        content = menu
+        break;
+      case "GALLERY":
+        content = productGallery;
+        break;
+      case "CHATTINGREPLY":
+        content = chattingReply;
+        break;
+    }
 
 
-  if (type !== "DOLL" && type !== "ANIMAL" && type !== "KEYCHAIN" && type !== "PERSONALREQUEST") {
+    if (type !== "DOLL" && type !== "ANIMAL" && type !== "KEYCHAIN" && type !== "PERSONALREQUEST") {
+      let body = {
+        "recipient": {
+          "id": sender_psid
+        },
+        "message": content
+      };
+      request({
+        "uri": "https://graph.facebook.com/v15.0/me/messages",
+        "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": body
+      }, (err, res, body) => {
+        if (!err) {
+          console.log('message sent');
+        } else {
+          console.error("Unable to send message: " + err);
+        }
+      });
+    } else {
+      // Running multiple requests for media template
+      switch (type.toUpperCase()) {
+        case "DOLL":
+          dollList.doll.forEach((key, value) => {
+            sendMultiRequestAPI(sender_psid, key, "bupbe");
+          });
+          break;
+        case "ANIMAL":
+          animalList.animal.forEach((key, value) => {
+            sendMultiRequestAPI(sender_psid, key, "thubong");
+          });
+          break;
+        case "KEYCHAIN":
+          keychainList.keychain.forEach((key, value) => {
+            sendMultiRequestAPI(sender_psid, key, "Khoa");
+          });
+          break;
+        case "PERSONALREQUEST":
+          personalRequestList.personalrequest.forEach((key, value) => {
+            sendMultiRequestAPI(sender_psid, key, "datHangCaNhan");
+          });
+          break;
+      };
+    };
+  };
+
+  function sendMultiRequestAPI(sender_psid, key, tag) {
     let body = {
       "recipient": {
         "id": sender_psid
       },
-      "message": content
+      "message": {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "media",
+            "elements": [
+              {
+                "media_type": "image",
+                "url": key.url,
+                "buttons": [
+                  {
+                    "type": "web_url",
+                    "url": key.url,
+                    "title": "Xem Chi tiet"
+                  }
+                  ,
+                  {
+                    "type": "postback",
+                    "title": `Hoi Gia ${tag} ${key.name}`,
+                    "payload": "AskingPrice"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
     };
     request({
       "uri": "https://graph.facebook.com/v15.0/me/messages",
@@ -645,82 +713,10 @@ let calSendAPIWithTemplate = (sender_psid, type) => {
         console.error("Unable to send message: " + err);
       }
     });
-  } else {
-    // Running multiple requests for media template
-    switch (type.toUpperCase()) {
-      case "DOLL":
-        dollList.doll.forEach((key, value) => {
-          sendMultiRequestAPI(sender_psid, key, "bupbe");
-        });
-        break;
-      case "ANIMAL":
-        animalList.animal.forEach((key, value) => {
-          sendMultiRequestAPI(sender_psid, key, "thubong");
-        });
-        break;
-      case "KEYCHAIN":
-        keychainList.keychain.forEach((key, value) => {
-          sendMultiRequestAPI(sender_psid, key, "Khoa");
-        });
-        break;
-      case "PERSONALREQUEST":
-        personalRequestList.personalrequest.forEach((key, value) => {
-          sendMultiRequestAPI(sender_psid, key, "datHangCaNhan");
-        });
-        break;
-    };
   };
-};
-
-function sendMultiRequestAPI(sender_psid, key, tag) {
-  let body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "media",
-          "elements": [
-            {
-              "media_type": "image",
-              "url": key.url,
-              "buttons": [
-                {
-                  "type": "web_url",
-                  "url": key.url,
-                  "title": "Xem Chi tiet"
-                }
-                ,
-                {
-                  "type": "postback",
-                  "title": `Hoi Gia ${tag} ${key.name}`,
-                  "payload": "AskingPrice"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
+  module.exports = {
+    getHomePage,
+    getWebHook,
+    postWebHook
   };
-  request({
-    "uri": "https://graph.facebook.com/v15.0/me/messages",
-    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent');
-    } else {
-      console.error("Unable to send message: " + err);
-    }
-  });
-};
-module.exports = {
-  getHomePage,
-  getWebHook,
-  postWebHook
-};
 
